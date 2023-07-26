@@ -1,10 +1,10 @@
 import './character.scss';
 
-function Character() {
+function Character({name, image}) {
   return (
     <div className='characters__item'>
-      <img className='avatar' src="https://rickandmortyapi.com/api/character/avatar/361.jpeg" alt="КАРТОЧКА"/>
-      <h4>КАРТОЧКА</h4>
+      <img className='avatar' src={image} alt={name}/>
+      <h4>{name}</h4>
     </div>
   );
 }
