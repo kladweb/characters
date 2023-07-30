@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react';
 
-import './charactersList.scss';
+import './charListAll.scss';
 import Character from '../character/Character';
 import { useHttp } from '../../hooks/http.hook';
+import Spinner from '../spinner/Spinner';
+import ScrollUp from '../ScrollUp/ScrollUp';
+import NavBarStart from '../navBar/NavBarStart';
 
-function CharactersList() {
+function CharListAll() {
 
   const {loading, request, error, clearError} = useHttp();
   const _apiBase = 'https://rickandmortyapi.com/api/character/?page=';
 
   const [charItems, changeCharItems] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [fetching, setFetching] = useState(true);
+  const [info, setInfo] = useState({pages: 1});
 
   useEffect(() => {
     document.addEventListener('scroll', scrollHandler)
@@ -22,16 +25,18 @@ function CharactersList() {
   }, []);
 
   useEffect(() => {
-    if (fetching && currentPage <= totalPages) {
-      request(_apiBase + currentPage, 'GET')
+    if (fetching && currentPage < info.pages) {
+      request(_apiBase + (currentPage + 1), 'GET')
         .then((data) => {
-          setTotalPages(data.info.pages);
+          setInfo(data.info);
           changeCharItems([...charItems, ...data.results]);
           setCurrentPage(currentPage + 1);
         })
         .finally(() => setFetching(false));
     }
   }, [fetching]);
+
+
 
   const characters = charItems.map(character =>
     <Character
@@ -48,10 +53,23 @@ function CharactersList() {
   }
 
   return (
-    <div className='content characters'>
-      {characters}
-    </div>
+    <>
+      <ScrollUp/>
+      <NavBarStart
+        pagePrev={info.prev}
+        numPageCurrent={currentPage}
+        pageNext={info.next}
+        pages={info.pages}
+      />
+      <div className='content characters'>
+        {characters}
+        {
+          (loading) &&
+          <Spinner scale={1}/>
+        }
+      </div>
+    </>
   );
 }
 
-export default CharactersList;
+export default CharListAll;

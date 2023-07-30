@@ -1,10 +1,16 @@
 import './app.scss';
-import CharactersList from '../charactersList/CharactersList';
+import { BrowserRouter } from 'react-router-dom';
+
+import { PagesRouter } from '../../routes/PagesRouter';
 
 function App() {
   return (
     <div className="App">
-      <CharactersList/>
+      <BrowserRouter>
+        <main>
+          <PagesRouter/>
+        </main>
+      </BrowserRouter>
     </div>
   );
 }
