@@ -24,6 +24,7 @@
 
   &:disabled {
     opacity: 0.4;
+    cursor: default;
   }
 }
 
@@ -33,7 +34,6 @@
 
 .navPages .active {
   border: solid 2px lightyellow;
-  //color: limegreen;
 }
 
 .navPages-name {
