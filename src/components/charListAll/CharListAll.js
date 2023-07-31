@@ -1,50 +1,39 @@
 import { useEffect, useState } from 'react';
 
 import './charListAll.scss';
-import Character from '../character/Character';
-import { useHttp } from '../../hooks/http.hook';
-import Spinner from '../spinner/Spinner';
-import ScrollUp from '../ScrollUp/ScrollUp';
-import NavBarStart from '../navBar/NavBarStart';
+import Characters from '../characters/Characters';
+import useCharService from '../../hooks/charService';
 
 function CharListAll() {
 
-  const {loading, request, error, clearError} = useHttp();
-  const _apiBase = 'https://rickandmortyapi.com/api/character/?page=';
+  const {getCharacters} = useCharService();
 
   const [charItems, changeCharItems] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [fetching, setFetching] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
   const [info, setInfo] = useState({pages: 1});
+  const [fetching, setFetching] = useState(true);
 
   useEffect(() => {
     document.addEventListener('scroll', scrollHandler)
+    getCharacters(1)
+      .then((data) => {
+        setInfo(data.info);
+      });
     return () => {
       document.removeEventListener('scroll', scrollHandler)
     }
   }, []);
 
   useEffect(() => {
-    if (fetching && currentPage < info.pages) {
-      request(_apiBase + (currentPage + 1), 'GET')
+    if (fetching && currentPage <= info.pages) {
+      getCharacters(currentPage)
         .then((data) => {
-          setInfo(data.info);
           changeCharItems([...charItems, ...data.results]);
           setCurrentPage(currentPage + 1);
         })
         .finally(() => setFetching(false));
     }
   }, [fetching]);
-
-
-
-  const characters = charItems.map(character =>
-    <Character
-      key={character.id}
-      name={character.name}
-      image={character.image}
-    />
-  );
 
   const scrollHandler = (e) => {
     if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100) {
@@ -53,22 +42,11 @@ function CharListAll() {
   }
 
   return (
-    <>
-      <ScrollUp/>
-      <NavBarStart
-        pagePrev={info.prev}
-        numPageCurrent={currentPage}
-        pageNext={info.next}
-        pages={info.pages}
-      />
-      <div className='content characters'>
-        {characters}
-        {
-          (loading) &&
-          <Spinner scale={1}/>
-        }
-      </div>
-    </>
+    <Characters
+      charItems={charItems}
+      currentPage={currentPage}
+      info={info}
+    />
   );
 }
 

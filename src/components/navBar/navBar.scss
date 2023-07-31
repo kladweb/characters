@@ -21,6 +21,10 @@
   border: solid 1px #939999;
   border-radius: 10px;
   cursor: pointer;
+
+  &:disabled {
+    opacity: 0.4;
+  }
 }
 
 .navPages-links-first {

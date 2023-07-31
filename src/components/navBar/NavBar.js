@@ -1,12 +1,12 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 
 import './navBar.scss';
-import React from 'react';
 
-const NavBar = ({pagePrev, numPageCurrent, pageNext, pages}) => {
-  // const numPageNext = parseFloat(pageNext.split('page=')[1]);
-  // const numPagePrev = parseFloat(pagePrev.split('page=')[1]);
+const NavBar = ({numPageCurrent, pages}) => {
   const navigate = useNavigate();
+  const params = useParams();
+
   const goFirst = () => {
     navigate('/pages/1');
   }
@@ -24,45 +24,56 @@ const NavBar = ({pagePrev, numPageCurrent, pageNext, pages}) => {
   const getPrevLink = () => {
     let pagPages = []
 
+    if (!(params.part)) {
+      pagPages.push(
+        <NavLink to={`/`} key={0} className='navPages-links navPages-links-first'>
+          <span className='navPages-items'>ALL</span>
+        </NavLink>
+      );
+
+      pagPages.push(
+        <NavLink to={`/pages/1`} key={8} className='navPages-links'>
+          <span className='navPages-items navPages-name'>PAGES</span>
+        </NavLink>
+      );
+
+      return pagPages;
+    }
+
     pagPages.push(
-      <NavLink to={`/`} key={0} className='navPages-links navPages-links-first'>
+      <NavLink to={`/`} key={0} className='navPages-links navPages-links-first' disabled={true}>
         <span className='navPages-items'>ALL</span>
       </NavLink>
     );
 
-    if (numPageCurrent > 1) {
-      pagPages.push(
-        <button key={1} className='navPages-links' onClick={goFirst}>
-          <span className='material-icons-outlined navPages-symbol'>keyboard_double_arrow_left</span>
-        </button>
-      );
-      pagPages.push(
-        <button key={2} className='navPages-links' onClick={goBefore}>
-          <span className='material-icons-outlined navPages-symbol'>navigate_before</span>
-        </button>
-      );
-      pagPages.push(<span key={3} className='navPages-items navPages-name'>...</span>);
-    }
+    pagPages.push(
+      <button key={1} className='navPages-links' onClick={goFirst} disabled={!(numPageCurrent > 1)}>
+        <span className='material-icons-outlined navPages-symbol'>keyboard_double_arrow_left</span>
+      </button>
+    );
+    pagPages.push(
+      <button key={2} className='navPages-links' onClick={goBefore} disabled={!(numPageCurrent > 1)}>
+        <span className='material-icons-outlined navPages-symbol'>navigate_before</span>
+      </button>
+    );
+    pagPages.push(<span key={3} className='navPages-items navPages-name'>...</span>);
 
     pagPages.push(
       <NavLink to={`/pages/${numPageCurrent}`} key={4} className='navPages-links'>
         <span className='navPages-items'>{numPageCurrent}</span>
       </NavLink>
     );
-
-    if (numPageCurrent < pages) {
-      pagPages.push(<span key={5} className='navPages-items navPages-name'>...</span>);
-      pagPages.push(
-        <button key={6} className='navPages-links' onClick={goNext}>
-          <span className='material-icons-outlined navPages-symbol'>navigate_next</span>
-        </button>
-      );
-      pagPages.push(
-        <button key={7} className='navPages-links' onClick={goLast}>
-          <span className='material-icons-outlined navPages-symbol'>keyboard_double_arrow_right</span>
-        </button>
-      );
-    }
+    pagPages.push(<span key={5} className='navPages-items navPages-name'>...</span>);
+    pagPages.push(
+      <button key={6} className='navPages-links' onClick={goNext} disabled={!(numPageCurrent < pages)}>
+        <span className='material-icons-outlined navPages-symbol'>navigate_next</span>
+      </button>
+    );
+    pagPages.push(
+      <button key={7} className='navPages-links' onClick={goLast} disabled={!(numPageCurrent < pages)}>
+        <span className='material-icons-outlined navPages-symbol'>keyboard_double_arrow_right</span>
+      </button>
+    );
     return pagPages;
   }
 
