@@ -1,0 +1,134 @@
+.modal {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+}
+
+.modal-char {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  width: 42rem;
+  height: 20rem;
+  background-color: #FFF;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  border-radius: 2rem;
+  border: 10px solid #592415;
+  box-shadow: 10px 10px 20px #592415;
+
+  &::after {
+    content: '';
+    position: absolute;
+    //z-index: 4;
+    height: 20rem;
+    width: 20rem;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.93));
+    border-radius: 1.25rem 0 0 1.25rem;
+  }
+}
+
+.modal-avatar {
+  position: relative;
+  height: 20rem;
+  margin: 0;
+  padding: 0;
+  border-radius: 1.25rem 0 0 1.25rem;
+  opacity: 1;
+}
+
+.descriptions {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  margin-top: 1rem;
+}
+
+.description {
+  margin-top: 0.5rem;
+  padding-right: 0.25rem;
+  width: 45%;
+
+  & h4, p {
+    margin: 0.25rem 0 0 5%;
+  }
+
+  & h4:first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.button-close {
+  position: absolute;
+  font-family: "Material Icons", fantasy;
+  color: #575959;
+  right: 0.5rem;
+  top: 0.5rem;
+  border: solid 1px;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 20;
+}
+
+@media (max-width: 48rem) {
+  .modal-char {
+    width: 90%;
+    height: 15rem;
+
+    &::after {
+      height: 15rem;
+      width: 15rem;
+    }
+  }
+  .modal-avatar {
+    height: 15rem;
+  }
+  .description {
+    & h4, p {
+      margin: 0;
+      font-size: 0.85rem;
+    }
+  }
+}
+
+@media (max-width: 36rem) {
+  .modal-char {
+    width: fit-content;
+    height: fit-content;
+    display: block;
+
+    &::after {
+      height: 70vw;
+      width: 70vw;
+      border-radius: 1.25rem 1.25rem 0 0;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.93));
+    }
+  }
+  .modal-avatar {
+    height: 70vw;
+    border-radius: 1.25rem 1.25rem 0 0;
+  }
+  .descriptions {
+    width: 100%;
+    margin: 0 0 2rem;
+  }
+  .description {
+    margin-top: 0.5rem;
+    padding-left: 0.5rem;
+    width: 43%;
+
+    & h4, p {
+      margin: 0.5rem 0 0 0.25rem;
+    }
+  }
+}

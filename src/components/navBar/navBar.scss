@@ -1,0 +1,49 @@
+.navPages {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 1rem 0 0;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #592415;
+}
+
+.navPages-links {
+  display: block;
+  min-width: 1.5rem;
+  margin: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  text-decoration: none;
+  color: #592415;
+  background: rgba(175, 184, 184, 0.24);
+  text-align: center;
+  border: solid 1px #939999;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.4;
+  }
+}
+
+.navPages-links-first {
+  margin-right: 2rem;
+}
+
+.navPages .active {
+  border: solid 2px lightyellow;
+  //color: limegreen;
+}
+
+.navPages-name {
+  margin: 0.75rem 0 0.25rem;
+  padding: 0 0.5rem;
+  font-size: 1.5rem;
+}
+
+.navPages-symbol {
+  font-family: "Material Icons", fantasy;
+  vertical-align: middle;
+  font-size: 1.5rem;
+}
