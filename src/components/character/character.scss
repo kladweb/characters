@@ -17,11 +17,37 @@
 }
 
 .avatar {
-  width: 12rem;
-  height: 12rem;
+  width: 100%;
+  height: fit-content;
   position: relative;
   bottom: 2rem;
   object-fit: cover;
   border-radius: 10px;
   box-shadow: 5px 10px 10px rgb(147, 153, 153);
+}
+
+@media (max-width: 60rem) {
+  .characters__item {
+    padding: 0.5rem;
+    width: 15%;
+    margin: 1.5rem 1rem;
+
+    h4 {
+      padding: 0;
+      margin: -1.25rem 0 0.5rem;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+@media (max-width: 48rem) {
+  .characters__item {
+    width: 25%;
+  }
+}
+
+@media (max-width: 36rem) {
+  .characters__item {
+    width: 30%;
+  }
 }

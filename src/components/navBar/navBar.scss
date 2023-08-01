@@ -13,7 +13,7 @@
   display: block;
   min-width: 1.5rem;
   margin: 0.5rem;
-  padding: 0.2rem 0.5rem;
+  padding: 0.5rem 1rem 0.6rem;
   text-decoration: none;
   color: #592415;
   background: rgba(175, 184, 184, 0.24);
@@ -36,14 +36,44 @@
   border: solid 2px lightyellow;
 }
 
-.navPages-name {
-  margin: 0.75rem 0 0.25rem;
-  padding: 0 0.5rem;
-  font-size: 1.5rem;
+.navPages-dots {
+  padding: 1.5rem 0.75rem 0;
 }
 
 .navPages-symbol {
   font-family: "Material Icons", fantasy;
-  vertical-align: middle;
+  //vertical-align: middle;
+  line-height: 2rem;
   font-size: 1.5rem;
+}
+
+@media (max-width: 60rem) {
+  .navPages-links {
+    padding: 0.25rem 0.7rem 0.4rem;
+  }
+}
+
+@media (max-width: 48rem) {
+  .navPages-links {
+    font-size: 1rem;
+    margin: 0.25rem;
+    padding: 0.15rem 0.5rem 0.1rem;
+  }
+  .navPages-symbol {
+    font-size: 1rem;
+  }
+  .navPages-items {
+    padding: 0.25rem;
+  }
+  .navPages-name {
+    line-height: 2rem;
+    padding: 0;
+    margin: 0;
+  }
+  .navPages-dots {
+    padding: 0.5rem 0;
+  }
+  .navPages-links-first {
+    margin-right: 1rem;
+  }
 }

@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 const ScrollDiv = styled.div`
   position: fixed;
   display: block;
-  bottom: 8rem;
+  bottom: 4rem;
   right: 1rem;
   font-family: "Material Icons", fantasy;
   font-size: 3rem;
@@ -13,10 +13,16 @@ const ScrollDiv = styled.div`
   border-radius: 0.4rem;
   cursor: pointer;
   opacity: 0.5;
+  z-index: 30;
   transition: transform 0.5s ease-in-out, opacity 0.2s ease-in-out;
 
   &:hover {
     opacity: 0.8;
+  }
+
+  @media (max-width: 48rem) {
+    font-size: 2rem;
+    opacity: 0.5;
   }
 
   ${({toShow}) => css`
