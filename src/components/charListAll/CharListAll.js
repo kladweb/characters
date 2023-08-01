@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import './charListAll.scss';
 import Characters from '../characters/Characters';
 import useCharService from '../../hooks/charService';
+import './charListAll.scss';
 
 function CharListAll() {
 
-  const {getCharacters} = useCharService();
+  const {getCharacters, loading, error, clearError} = useCharService();
 
   const [charItems, changeCharItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,9 +43,11 @@ function CharListAll() {
 
   return (
     <Characters
-      charItems={charItems}
+      charItems={(!error) ? charItems : []}
       currentPage={currentPage}
       info={info}
+      loading={loading}
+      error={error}
     />
   );
 }

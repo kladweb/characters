@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { CSSTransition } from 'react-transition-group';
 
 import './modalChar.scss';
 
-const ModalChar = ({character, setShowMod}) => {
+const ModalChar = ({character, setShowMod, showMod}) => {
+  const nodeRef = React.useRef(null);
+  const [closeMod, setCloseMod] = useState(true);
+
+  //closeMod и setCloseMod используем для анимации (плавного появления) модального окна;
   useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "auto";
-    }
+    setCloseMod(false);
   }, []);
 
   const descriptions = ['name', 'origin.name', 'status', 'location.name', 'species', 'gender'];
@@ -19,19 +21,36 @@ const ModalChar = ({character, setShowMod}) => {
         <p>{(items.length === 2) ? character[items[0]][items[1]] : character[item]}</p>
       </div>
     );
-  })
+  });
 
   return (
-    <div className='modal' onClick={() => setShowMod(0)}>
-      <div className='modal-char' onClick={e => e.stopPropagation()}>
-        <span className='button-close material-icons-outlined' onClick={() => setShowMod(0)}>close</span>
-        <img className='modal-avatar' src={character.image} alt={character.name}/>
-        <div className='descriptions'>
-          {infoItems}
+    <CSSTransition
+      timeout={700}
+      nodeRef={nodeRef}
+      classNames='land'
+      in={!closeMod}
+      onExited={() => {
+        setShowMod(0);
+      }}
+      mountOnEnter
+      unmountOnExit
+    >
+      <div ref={nodeRef} className='modal' onClick={() => {
+        setCloseMod(true)
+      }}>
+        <div className='modal-char' onClick={e => e.stopPropagation()}>
+          <span className='button-close material-icons-outlined' onClick={() => {
+            setCloseMod(true)
+          }}>close</span>
+          <img className='modal-avatar' src={character.image} alt={character.name}/>
+          <div className='descriptions'>
+            {infoItems}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    </CSSTransition>
+  )
+    ;
 }
 
 export default ModalChar;

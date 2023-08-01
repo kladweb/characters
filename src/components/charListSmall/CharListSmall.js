@@ -6,7 +6,7 @@ import useCharService from '../../hooks/charService';
 
 function CharListSmall() {
 
-  const {getCharacters} = useCharService();
+  const {getCharacters, loading, error, clearError} = useCharService();
 
   const params = useParams();
   const navigate = useNavigate();
@@ -17,6 +17,8 @@ function CharListSmall() {
   const [info, setInfo] = useState({pages: 1});
 
   useEffect(() => {
+    changeCharItems([]);
+    clearError();
     if (!isNaN(Number(page))) {
       setCurrentPage(parseFloat(page));
     } else {
@@ -32,6 +34,7 @@ function CharListSmall() {
         if (currentPage <= data.info.pages && currentPage >= 1) {
           getCharacters(currentPage)
             .then((data2) => {
+              clearError();
               changeCharItems([...data2.results]);
             });
         } else {
@@ -46,6 +49,8 @@ function CharListSmall() {
       charItems={charItems}
       currentPage={currentPage}
       info={info}
+      loading={loading}
+      error={error}
     />
   );
 }

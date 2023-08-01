@@ -24,27 +24,20 @@ const NavBar = ({numPageCurrent, pages}) => {
   const getPrevLink = () => {
     let pagPages = []
 
-    if (!(params.part)) {
-      pagPages.push(
-        <NavLink to={`/`} key={0} className='navPages-links navPages-links-first'>
-          <span className='navPages-items'>ALL</span>
-        </NavLink>
-      );
+    pagPages.push(
+      <NavLink to={`/`} key={0} className='navPages-links navPages-links-first' disabled={true}>
+        <span className='navPages-items navPages-name'>ALL</span>
+      </NavLink>
+    );
 
+    if (!(params.part)) {
       pagPages.push(
         <NavLink to={`/pages/1`} key={8} className='navPages-links'>
           <span className='navPages-items navPages-name'>PAGES</span>
         </NavLink>
       );
-
       return pagPages;
     }
-
-    pagPages.push(
-      <NavLink to={`/`} key={0} className='navPages-links navPages-links-first' disabled={true}>
-        <span className='navPages-items'>ALL</span>
-      </NavLink>
-    );
 
     pagPages.push(
       <button key={1} className='navPages-links' onClick={goFirst} disabled={!(numPageCurrent > 1)}>
@@ -56,14 +49,14 @@ const NavBar = ({numPageCurrent, pages}) => {
         <span className='material-icons-outlined navPages-symbol'>navigate_before</span>
       </button>
     );
-    pagPages.push(<span key={3} className='navPages-items navPages-name'>...</span>);
+    pagPages.push(<span key={3} className='navPages-items navPages-dots'>...</span>);
 
     pagPages.push(
       <NavLink to={`/pages/${numPageCurrent}`} key={4} className='navPages-links'>
-        <span className='navPages-items'>{numPageCurrent}</span>
+        <span className='navPages-items navPages-name'>{numPageCurrent}</span>
       </NavLink>
     );
-    pagPages.push(<span key={5} className='navPages-items navPages-name'>...</span>);
+    pagPages.push(<span key={5} className='navPages-items navPages-dots'>...</span>);
     pagPages.push(
       <button key={6} className='navPages-links' onClick={goNext} disabled={!(numPageCurrent < pages)}>
         <span className='material-icons-outlined navPages-symbol'>navigate_next</span>

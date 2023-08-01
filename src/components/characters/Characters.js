@@ -1,15 +1,13 @@
 import { useState } from 'react';
 
-import { useHttp } from '../../hooks/http.hook';
 import Spinner from '../spinner/Spinner';
 import ScrollUp from '../ScrollUp/ScrollUp';
 import NavBar from '../navBar/NavBar';
 import Character from '../character/Character';
 import ModalChar from '../modalChar/ModalChar';
+import './characters.scss';
 
-function Characters({charItems, currentPage, info}) {
-
-  const {loading} = useHttp();
+function Characters({charItems, currentPage, info, loading, error}) {
 
   //0 - не показываем модальное окно, n - показываем модальное окно персонажа с ID = n;
   const [showMod, setShowMod] = useState(0);
@@ -38,12 +36,16 @@ function Characters({charItems, currentPage, info}) {
       <NavBar
         numPageCurrent={currentPage}
         pages={info.pages}
+        loading={loading}
       />
       <div className='content characters'>
         {
-          (!!showMod) && <ModalChar character={getCharacter()} setShowMod={setShowMod}/>
+          (!!showMod) && <ModalChar character={getCharacter()} setShowMod={setShowMod} showMod={showMod}/>
         }
         {characters}
+        {
+          (!!error) && <img className='image-error' src='/img/error/error_2.png' alt='ERROR'/>
+        }
         {
           (loading) && <Spinner scale={1}/>
         }
