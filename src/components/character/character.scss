@@ -26,6 +26,11 @@
   box-shadow: 5px 10px 10px rgb(147, 153, 153);
 }
 
+.img-error {
+  max-width: 50%;
+  padding: 35% 0;
+}
+
 @media (max-width: 60rem) {
   .characters__item {
     padding: 0.5rem;

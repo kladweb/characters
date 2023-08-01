@@ -13,7 +13,7 @@ const ScrollDiv = styled.div`
   border-radius: 0.4rem;
   cursor: pointer;
   opacity: 0.5;
-  z-index: 30;
+  z-index: 10;
   transition: transform 0.5s ease-in-out, opacity 0.2s ease-in-out;
 
   &:hover {

@@ -1,13 +1,13 @@
 import { useHttp } from './http.hook';
 
 const useCharService = () => {
-  const {request} = useHttp();
+  const {request, loading, error, clearError} = useHttp();
   const _apiBase = 'https://rickandmortyapi.com/api/character/?page=';
 
-  const getCharacters = async (numPage) => {
-    return await request(_apiBase + numPage, 'GET');
+  const getCharacters = (numPage) => {
+    return request(_apiBase + numPage, 'GET');
   }
-  return {getCharacters};
+  return {getCharacters, loading, error, clearError};
 }
 
 export default useCharService;
