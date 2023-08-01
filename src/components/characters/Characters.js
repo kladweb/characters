@@ -50,6 +50,7 @@ function Characters({charItems, currentPage, info, loading, error}) {
           (loading) && <Spinner scale={1}/>
         }
       </div>
+      <img className='preload' src='/img/error/error_2.png' alt='ERROR'/>
     </>
   );
 }
